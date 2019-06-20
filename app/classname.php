@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class classname extends Model
+class Classname extends Model
 {
-   public function name()
+   public function id()
    {
-       return $this->belongsTo('App\group');
+       return $this->belongsTo('App\Classroom');
    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProblemsTable extends Migration
+class CreateTestcasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateProblemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('problems', function (Blueprint $table) {
+        Schema::create('testcases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('prob_id', 50);
-            $table->string('title', 200);
-            $table->longText('message');
-            $table->integer('level')->unsigned()->nullable()->default(1);
-            $table->unique('prob_id');
+            $table->integer('number');
+            $table->longText('input');
+            $table->longText('output');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateProblemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('problems');
+        Schema::dropIfExists('testcases');
     }
 }

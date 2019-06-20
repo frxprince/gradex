@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassnameTable extends Migration
+class CreateWaitingjobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateClassnameTable extends Migration
      */
     public function up()
     {
-        Schema::create('classname', function (Blueprint $table) {
+        Schema::create('waitingjobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('name');
-            $table->unique('name');
+            $table->bigInteger('submission_id');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateClassnameTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classname');
+        Schema::dropIfExists('waitingjobs');
     }
 }

@@ -40,13 +40,12 @@ class User extends Authenticatable
 
 
 
-public function submission()
+
+
+public function id()
 {
-    return $this->hasMany('App\submission');
+    return $this->belongsTo('App\Classroom');
 }
 
-public function group()
-{
-    return $this->belongsTo('App\group');
-}
+
 }

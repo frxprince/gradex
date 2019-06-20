@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->bigInteger('std_id')->nullable()->default(12);
+            $table->string('alias', 100)->nullable();
+            $table->boolean('admin')->default(false);
+            $table->boolean('ta')->default(false);
 
         });
     }

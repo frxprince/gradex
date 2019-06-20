@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWaitinglistTable extends Migration
+class CreateAnalysesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateWaitinglistTable extends Migration
      */
     public function up()
     {
-        Schema::create('waitinglist', function (Blueprint $table) {
+        Schema::create('analyses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('submission_id');
+            $table->bigInteger('testcase_id');
+            $table->longText('output');
         });
     }
 
@@ -27,6 +29,6 @@ class CreateWaitinglistTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('waitinglist');
+        Schema::dropIfExists('analyses');
     }
 }

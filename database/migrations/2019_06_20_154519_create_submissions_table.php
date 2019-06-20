@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubmissionTable extends Migration
+class CreateSubmissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSubmissionTable extends Migration
      */
     public function up()
     {
-        Schema::create('submission', function (Blueprint $table) {
+        Schema::create('submissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('prob_id', 50);
@@ -27,8 +27,6 @@ class CreateSubmissionTable extends Migration
             $table->string('fname', 100)->nullable()->default('temp');
             $table->longText('compiler_message');
 
-
-
         });
     }
 
@@ -39,6 +37,6 @@ class CreateSubmissionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('submission');
+        Schema::dropIfExists('submissions');
     }
 }
