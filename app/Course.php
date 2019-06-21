@@ -10,4 +10,9 @@ class Course extends Model
     return $this->hasMany('App\Classroom');
 }
 
+public function schedule()
+{
+    return $this->belongsTo('App\Schedule');
+}
+
 }

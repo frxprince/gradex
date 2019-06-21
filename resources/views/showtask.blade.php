@@ -9,7 +9,7 @@ hello world <br>
 <hr>
 @foreach ($data as $item)
     <p>
-{{$item->user_id}}={{$item->user->name}} = {{$item->course->name}}
+{{$item}}
 @endforeach
 <hr>
 {{$data}}

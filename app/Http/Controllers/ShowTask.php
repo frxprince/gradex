@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Classroom;
 use App\User;
 use App\Course;
+use App\Schedule;
+use App\Problem;
 class ShowTask extends Controller
 {
     /**
@@ -15,7 +17,8 @@ class ShowTask extends Controller
      */
     public function index()
     {
-$items=Classroom::where('course_id','1')->get();
+
+$items=Problem::all();
 
 
 return view('showtask')->with('data',$items);
