@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Classroom;
 use App\User;
-use App\Classname;
+use App\Course;
 class ShowTask extends Controller
 {
     /**
@@ -14,14 +14,13 @@ class ShowTask extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $students=Classroom::where('classid',git );
-        $items=$students->get();
-        $x="";
-        foreach( $items as $item){
-            $x=$x.$item->classname->name.'<br>';
-        }
-        return $x;
-    }
+    {
+$items=Classroom::where('course_id','1')->get();
+
+
+return view('showtask')->with('data',$items);
+
+}
 
     /**
      * Show the form for creating a new resource.
