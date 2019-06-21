@@ -18,7 +18,7 @@ class ShowTask extends Controller
     public function index()
     {
 
-$items=Problem::all();
+$items=Schedule::all();
 
 
 return view('showtask')->with('data',$items);

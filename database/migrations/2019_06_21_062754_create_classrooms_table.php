@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateClassroomsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migraions.
      *
      * @return void
      */

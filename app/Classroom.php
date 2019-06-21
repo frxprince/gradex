@@ -6,13 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
-    public function course()
+    public $timestamps = false;
+    public function schedule()
     {
-        return $this->belongsTo('App\Course');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Schedule', 'id', 'course_id');
     }
 }
