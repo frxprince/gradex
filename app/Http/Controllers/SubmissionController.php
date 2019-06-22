@@ -37,13 +37,29 @@ class SubmissionController extends Controller
     }*/
 
      // user to schedule
-$tasks=User::find(1)->classrooms;
-$x='';
-foreach ($tasks as $task) {
-    $x=$x.$task->courses."<br>";
+     $x='';
+     $now=Carbon::now()->toDateTimeString();
+     $tasklist=[];
+foreach (session('courses') as $course) {
+    $tasks=Schedule::where('course_id',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
+    $problems=[];
+     foreach ($tasks as $task) {
+        $problems[]=[
+            'title'=>$task->problem->title,
+            'message'=>$task->problem->message,
+            'level'=>$task->problem->level,
+            'tolerant'=>$task->problem->tolerant
+                     ];
+     }
+   $tasklist[]=[
+      'course'=>$course['title'],
+       'problems'=>$problems
+   ];
 }
 
-return $x;
+
+
+return $tasklist;//view('submission.index')->with('data',session('courses'));
     }
 
     /**

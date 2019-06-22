@@ -10,7 +10,7 @@ class Course extends Model
     public $timestamps = false;
     public function classrooms()
     {
-        return $this->hasMany('App\Classroom');
+        return $this->hasMany('App\Classroom','course_id','id');
     }
     public function schedules()
     {

@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Classroom extends Model
 {
     public $timestamps = false;
-    public function schedule()
-    {
-        return $this->belongsTo('App\Schedule', 'id', 'course_id');
-    }
+   
     public function user()
     {
         return $this->hasOne('App\User', 'id', 'user_id');
+    }
+
+    public function course()
+    {
+        return $this->hasOne('App\Course', 'id', 'course_id');
     }
 }
