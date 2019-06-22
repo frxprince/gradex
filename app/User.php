@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Classroom;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -43,7 +43,10 @@ public function classrooms()
     return $this->hasMany('App\Classroom');
 }
 
-
+public function classroom()
+{
+    return $this->belongsTo('App\Classroom', 'user_id', 'id');
+}
 
 
 

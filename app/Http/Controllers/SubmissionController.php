@@ -23,10 +23,27 @@ class SubmissionController extends Controller
      */
     public function index()
     { 
+        /* schedule to users
      $now=Carbon::now()->toDateTimeString();
      $tasks=Schedule::where('end_time','>=',$now)->where('start_time','<=',$now)->get();
+     $x='';
+    foreach($tasks as $task){
+        $x=$x.$task->course->name.'<br>';
+     //   $x=$x.$task->course->classrooms.'<br>';
+       foreach($task->course->classrooms as $student){
+            $x=$x.$student->user->name."<br>";
+        }
 
-return $tasks;
+    }*/
+
+     // user to schedule
+$tasks=User::find(1)->classrooms;
+$x='';
+foreach ($tasks as $task) {
+    $x=$x.$task->courses."<br>";
+}
+
+return $x;
     }
 
     /**
