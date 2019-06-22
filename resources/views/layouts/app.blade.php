@@ -76,5 +76,7 @@
             @yield('content')
         </main>
     </div>
+    <hr>
+    @yield('footer');
 </body>
 </html>
