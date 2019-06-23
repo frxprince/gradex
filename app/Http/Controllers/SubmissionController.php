@@ -51,7 +51,7 @@ foreach (session('courses') as $course) {
 
 
 
-return view('submission.index')->with('data',$tasklist);
+return view('submission.index')->with('payload',['data'=>$tasklist,'problem'=>null]);
     }
 
     /**
@@ -82,8 +82,19 @@ return view('submission.index')->with('data',$tasklist);
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return $id;
+    { $x='';
+        $now=Carbon::now()->toDateTimeString();
+        $tasklist=[];
+   foreach (session('courses') as $course) {
+       $tasks=Schedule::where('course_id',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
+   
+      $tasklist[]=[
+         'title'=>$course['title'],
+          'tasks'=>$tasks
+      ];
+   }
+   $problem=Problem::find($id);
+   return view('submission.index')->with('payload',['data'=>$tasklist,'problem'=>$problem]);
     }
 
     /**

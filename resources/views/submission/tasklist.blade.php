@@ -2,7 +2,7 @@
 
 
 <div id="accordion">
-
+<?php $data=$payload['data'];?>
 @foreach ($data as $course)
 <br>
 
@@ -21,7 +21,7 @@
 <ul class="list-group">
     @foreach ($course['tasks'] as $task)
         <li class="list-group-item">
-        <a href="submission/{{$task->problem->id}}">{{$task->problem->title}}  ({{$task->end_time}}) </a>
+        <a href="/submission/{{$task->problem->id}}">{{$task->problem->title}}  ({{$task->end_time}}) </a>
 
         </li>
 
