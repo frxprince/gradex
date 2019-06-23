@@ -72,7 +72,7 @@ return view('submission.index')->with('payload',['data'=>$tasklist,'problem'=>nu
      */
     public function store(Request $request)
     {
-        //
+        return $request->input('Problem_id').$request->input('Lang');
     }
 
     /**

@@ -19,4 +19,25 @@ $problem=$payload['problem'];
       </h5>
     </div>
 
+<br>
+    <h2>Submit your code</h2>
+
+{!! Form::open(['action'=>'SubmissionController@store','method'=>'POST','enctype'=>'multipart/form-data']) !!}
+<div class="form-group">
+{!! Form::label('title','Programming language:') !!}
+{!! Form::radio('Lang', 'C')!!} C /
+{!! Form::radio('Lang', 'CPP')!!} C++ /
+ {!! Form::radio('Lang', 'Java')!!} Java /
+  {!! Form::radio('Lang', 'Python3',true)!!} Python3
+
+{!! Form::hidden('Problem_id', $problem->id) !!}
+
+</div>
+<!-- https://github.com/LaravelCollective/docs  !-->
+<div class="form-group">
+   
+</div>
+{!! Form::submit("Submit", ['class'=>'btn btn-lg btn-success btn-block']) !!}
+{!! Form::close() !!}
+
     @endif
