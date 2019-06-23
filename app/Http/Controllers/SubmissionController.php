@@ -42,24 +42,16 @@ class SubmissionController extends Controller
      $tasklist=[];
 foreach (session('courses') as $course) {
     $tasks=Schedule::where('course_id',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
-    $problems=[];
-     foreach ($tasks as $task) {
-        $problems[]=[
-            'title'=>$task->problem->title,
-            'message'=>$task->problem->message,
-            'level'=>$task->problem->level,
-            'tolerant'=>$task->problem->tolerant
-                     ];
-     }
+
    $tasklist[]=[
-      'course'=>$course['title'],
-       'problems'=>$problems
+      'title'=>$course['title'],
+       'tasks'=>$tasks
    ];
 }
 
 
 
-return $tasklist;//view('submission.index')->with('data',session('courses'));
+return view('submission.index')->with('data',$tasklist);
     }
 
     /**
@@ -91,7 +83,7 @@ return $tasklist;//view('submission.index')->with('data',session('courses'));
      */
     public function show($id)
     {
-        //
+        return $id;
     }
 
     /**
