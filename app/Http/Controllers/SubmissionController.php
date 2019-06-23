@@ -8,12 +8,14 @@ use App\User;
 use App\Course;
 use App\Schedule;
 use App\Problem;
+use App\Submission;
 use Carbon\Carbon;
 class SubmissionController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -71,8 +73,34 @@ return view('submission.index')->with('payload',['data'=>$tasklist,'problem'=>nu
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        return $request->input('Problem_id').$request->input('Lang');
+    {  $this->validate($request,['Lang'=>'required','problem_id'=>'required']);
+        if($request->hasFile('sourcefile')){
+
+            $submission=new Submission;
+            $submission->problem_id=$request->input('problem_id');
+            $submission->Lang=$request->input('Lang');
+            $submission->user_id=auth()->user()->id;
+            $submission->IP=\Request::ip();
+            $submission->score=0.0;
+            $submission->message="waiting";
+            $submission->compiler_message="waiting";
+            $submission->fname=$request->file('sourcefile')->getClientOriginalName();
+            $submission->code="hello";
+            $submission->save();
+           // $submission->problem_id=$request->input('problem_id');
+
+            
+            //$post->cover_image=$fileNameToStore;
+           // $post->user_id=auth()->user()->id;
+            //$post->save();
+
+
+return $request->input('problem_id').$request->input('Lang');
+        }else{
+           
+            return redirect('/submission/'.$request->input('problem_id'))->withErrors(array('message'=>'File not found!!'));
+        }
+        
     }
 
     /**

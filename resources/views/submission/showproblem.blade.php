@@ -30,13 +30,14 @@ $problem=$payload['problem'];
  {!! Form::radio('Lang', 'Java')!!} Java /
   {!! Form::radio('Lang', 'Python3',true)!!} Python3
 
-{!! Form::hidden('Problem_id', $problem->id) !!}
+{!! Form::hidden('problem_id', $problem->id) !!}
 
 </div>
 <!-- https://github.com/LaravelCollective/docs  !-->
 <div class="form-group">
    
 </div>
+Source code:{!! Form::file('sourcefile' ) !!}
 {!! Form::submit("Submit", ['class'=>'btn btn-lg btn-success btn-block']) !!}
 {!! Form::close() !!}
 
