@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use App\Classroom;
 use App\User;
 use App\Course;
 use App\Schedule;
 use App\Problem;
 use App\Submission;
+use App\Waitinglist;
 use Carbon\Carbon;
 class SubmissionController extends Controller
 {
@@ -18,42 +21,31 @@ class SubmissionController extends Controller
 
     }
 
+
+    public function getTasklist(){
+        $now=Carbon::now()->toDateTimeString();
+        $tasklist=[];
+   foreach (session('courses') as $course) {
+       $tasks=Schedule::where('course_id',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
+
+      $tasklist[]=[
+         'title'=>$course['title'],
+          'tasks'=>$tasks
+      ];
+   }
+return $tasklist;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-        /* schedule to users
-     $now=Carbon::now()->toDateTimeString();
-     $tasks=Schedule::where('end_time','>=',$now)->where('start_time','<=',$now)->get();
-     $x='';
-    foreach($tasks as $task){
-        $x=$x.$task->course->name.'<br>';
-     //   $x=$x.$task->course->classrooms.'<br>';
-       foreach($task->course->classrooms as $student){
-            $x=$x.$student->user->name."<br>";
-        }
+    {
 
-    }*/
-
-     // user to schedule
-     $x='';
-     $now=Carbon::now()->toDateTimeString();
-     $tasklist=[];
-foreach (session('courses') as $course) {
-    $tasks=Schedule::where('course_id',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
-
-   $tasklist[]=[
-      'title'=>$course['title'],
-       'tasks'=>$tasks
-   ];
-}
-
-
-
-return view('submission.index')->with('payload',['data'=>$tasklist,'problem'=>null]);
+return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'problem'=>null]);
     }
 
     /**
@@ -78,29 +70,27 @@ return view('submission.index')->with('payload',['data'=>$tasklist,'problem'=>nu
 
             $submission=new Submission;
             $submission->problem_id=$request->input('problem_id');
-            $submission->Lang=$request->input('Lang');
+            $submission->Lang=DB::connection()->getPdo()->quote($request->input('Lang'));
             $submission->user_id=auth()->user()->id;
             $submission->IP=\Request::ip();
             $submission->score=0.0;
             $submission->message="waiting";
             $submission->compiler_message="waiting";
-            $submission->fname=$request->file('sourcefile')->getClientOriginalName();
-            $submission->code="hello";
+            $submission->fname=DB::connection()->getPdo()->quote($request->file('sourcefile')->getClientOriginalName());
+            $submission->code= mb_convert_encoding (DB::connection()->getPdo()->quote(File::get($request->file('sourcefile')->getRealPath())),'US-ASCII','UTF-8');
             $submission->save();
-           // $submission->problem_id=$request->input('problem_id');
 
-            
-            //$post->cover_image=$fileNameToStore;
-           // $post->user_id=auth()->user()->id;
-            //$post->save();
+            $waitinglist=new Waitinglist;
+            $waitinglist->submission_id= $submission->id;
+            $waitinglist->save();
 
 
-return $request->input('problem_id').$request->input('Lang');
+return  redirect('/submission/'.$submission->id.'/edit')->with('success','Scccessfully uploaded!');
         }else{
-           
+
             return redirect('/submission/'.$request->input('problem_id'))->withErrors(array('message'=>'File not found!!'));
         }
-        
+
     }
 
     /**
@@ -110,19 +100,10 @@ return $request->input('problem_id').$request->input('Lang');
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    { $x='';
-        $now=Carbon::now()->toDateTimeString();
-        $tasklist=[];
-   foreach (session('courses') as $course) {
-       $tasks=Schedule::where('course_id',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
-   
-      $tasklist[]=[
-         'title'=>$course['title'],
-          'tasks'=>$tasks
-      ];
-   }
+    {
+
    $problem=Problem::find($id);
-   return view('submission.index')->with('payload',['data'=>$tasklist,'problem'=>$problem]);
+   return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'problem'=>$problem]);
     }
 
     /**
@@ -132,9 +113,12 @@ return $request->input('problem_id').$request->input('Lang');
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    { $queue=Waitinglist::count();
+
+
+   return view('submission.showresult')->with('payload',['data'=>$this->getTasklist(),'result'=>'','queuelenght'=>$queue]);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -145,7 +129,7 @@ return $request->input('problem_id').$request->input('Lang');
      */
     public function update(Request $request, $id)
     {
-        //
+       return "hello";
     }
 
     /**
@@ -158,4 +142,6 @@ return $request->input('problem_id').$request->input('Lang');
     {
         //
     }
+
+
 }

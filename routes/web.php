@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('showtask','ShowTask');
 Route::resource('submission','SubmissionController');
+
