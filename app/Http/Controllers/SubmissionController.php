@@ -13,16 +13,26 @@ use App\Problem;
 use App\Submission;
 use App\Waitinglist;
 use Carbon\Carbon;
+use Session;
+use Illuminate\Support\Facades\Auth;
 class SubmissionController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+  
 
     }
 
 
     public function getTasklist(){
+        $tasks=User::find(Auth::user()->id)->classrooms;
+        $x='';
+        $courses=array();
+        foreach ($tasks as $task) {
+           array_push($courses,array('id'=>$task->course->id,'title'=>$task->course->name ));
+        }
+        session(['courses'=>$courses]);
         $now=Carbon::now()->toDateTimeString();
         $tasklist=[];
    foreach (session('courses') as $course) {
@@ -34,6 +44,7 @@ class SubmissionController extends Controller
       ];
    }
 return $tasklist;
+    
     }
 
 

@@ -20,15 +20,17 @@ $problem=$payload['problem'];
     </div>
 
 <br>
-    <h2>Submit your code</h2>
+    <h2>Submit your code</h2> 
 
 {!! Form::open(['action'=>'SubmissionController@store','method'=>'POST','enctype'=>'multipart/form-data']) !!}
 <div class="form-group">
 {!! Form::label('title','Programming language:') !!}
-{!! Form::radio('Lang', 'C')!!} C /
-{!! Form::radio('Lang', 'CPP')!!} C++ /
- {!! Form::radio('Lang', 'Java')!!} Java /
-  {!! Form::radio('Lang', 'Python3',true)!!} Python3
+{!! Form::radio('Lang', 'c')!!} C /
+{!! Form::radio('Lang', 'cpp')!!} C++ /
+{!! Form::radio('Lang', 'cs')!!} C# /
+{!! Form::radio('Lang', 'java')!!} Java /
+{!! Form::radio('Lang', 'py2')!!} Python2 /
+{!! Form::radio('Lang', 'py3',true)!!} Python3
 
 {!! Form::hidden('problem_id', $problem->id) !!}
 
