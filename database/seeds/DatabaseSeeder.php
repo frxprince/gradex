@@ -6,6 +6,7 @@ use App\Schedule;
 use App\User;
 use App\Course;
 use App\Classroom;
+use App\Testcase;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,11 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $record=new Problem;$record->title="hello1"; $record->message="hello1"; $record->level="0"; $record->save();
+        $record=new Problem;$record->title="adder"; $record->message="addtwonumbers"; $record->level="0"; $record->save();
         $record=new Problem;$record->title="hello2"; $record->message="hello2"; $record->level="1"; $record->save();
         $record=new Problem;$record->title="hello3"; $record->message="hello3"; $record->level="2"; $record->save();
         $record=new Problem;$record->title="hello4"; $record->message="hello4"; $record->level="3"; $record->save();
         $record=new Problem;$record->title="hello5"; $record->message="hello5"; $record->level="4"; $record->save();
+
+        $r=new Testcase;$r->problem_id="1";$r->number="1";$r->input="1 2";$r->output="3";$r->save();
 
         $r=new Schedule;$r->problem_id=1;$r->start_time='2019-06-21 14:38:31';$r->end_time='2020-06-21 14:38:31';$r->course_id='1';$r->save();
         $r=new Schedule;$r->problem_id=2;$r->start_time='2019-06-21 14:38:31';$r->end_time='2020-06-21 14:38:31';$r->course_id='1';$r->save();

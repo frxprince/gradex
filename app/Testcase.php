@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Testcase extends Model
-{
+{public $timestamps = false;
     public function problem()
     {
         return $this->belongsTo('App\Problem', 'id', 'problem_id');
