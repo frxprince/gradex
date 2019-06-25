@@ -17,6 +17,7 @@ class CreateSubmissionsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('problem_id');
+            $table->bigInteger('schedule_id');
             $table->bigInteger('user_id');
             $table->longText('code');
             $table->boolean('grated')->default(false);

@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $r=new Classroom;$r->course_id='4';$r->user_id='1';$r->save();
         $r=new Classroom;$r->course_id='4';$r->user_id='2';$r->save();
         $r=new Classroom;$r->course_id='4';$r->user_id='5';$r->save();
-     
+        $r=new Classroom;$r->course_id='1';$r->user_id='9';$r->save();
         $r=new Course;$r->name="cs100";$r->save();
         $r=new Course;$r->name="cs101";$r->save();
         $r=new Course;$r->name="cs102";$r->save();
@@ -59,7 +59,10 @@ class DatabaseSeeder extends Seeder
         $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std8';
         $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
-
+        $x='std99';
+        $r=new User;$r->name=$x;$r->email=$x;
+        $r->password='$2y$10$I2Eqop.BfcWoneTH0cAug.5KrLSlqud3PKg9ryPb7iWTS.TyT3aLi';
+        $r->save();
 
 
 

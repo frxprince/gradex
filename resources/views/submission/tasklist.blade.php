@@ -14,14 +14,14 @@
           </button>
         </h5>
       </div>
-  
+
       <div id="collapse{{$course['title']}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
 @if (count($course['tasks'])>0)
 <ul class="list-group">
     @foreach ($course['tasks'] as $task)
         <li class="list-group-item">
-        <a href="/submission/{{$task->problem->id}}">{{$task->problem->title}}  ({{$task->end_time}}) </a>
+        <a href="/submission/{{$task->problem->id}}/{{$task->id}}">{{$task->problem->title}}  ({{$task->end_time}}) </a>
 
         </li>
 
@@ -35,7 +35,7 @@
     </div>
 
 
-@endforeach    
+@endforeach
   </div>
 
 

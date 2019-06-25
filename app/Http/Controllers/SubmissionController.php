@@ -20,7 +20,7 @@ class SubmissionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-  
+
 
     }
 
@@ -44,7 +44,7 @@ class SubmissionController extends Controller
       ];
    }
 return $tasklist;
-    
+
     }
 
 
@@ -81,14 +81,15 @@ return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'p
 
             $submission=new Submission;
             $submission->problem_id=$request->input('problem_id');
-            $submission->Lang=DB::connection()->getPdo()->quote($request->input('Lang'));
+            $submission->schedule_id=$request->input('schedule_id');
+            $submission->Lang=$request->input('Lang');
             $submission->user_id=auth()->user()->id;
             $submission->IP=\Request::ip();
             $submission->score=0.0;
             $submission->message="waiting";
             $submission->compiler_message="waiting";
-            $submission->fname=DB::connection()->getPdo()->quote($request->file('sourcefile')->getClientOriginalName());
-            $submission->code= mb_convert_encoding (DB::connection()->getPdo()->quote(File::get($request->file('sourcefile')->getRealPath())),'US-ASCII','UTF-8');
+            $submission->fname=$request->file('sourcefile')->getClientOriginalName();
+            $submission->code= mb_convert_encoding (File::get($request->file('sourcefile')->getRealPath()),'US-ASCII','UTF-8');
             $submission->save();
 
             $waitinglist=new Waitinglist;
@@ -110,6 +111,11 @@ return  redirect('/submission/'.$submission->id.'/edit')->with('success','Sccces
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     public function showproblem($problem_id,$schedule_id){
+        $problem=Problem::find($problem_id);
+   return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'problem'=>$problem,'schedule_id'=>$schedule_id]);
+     }
     public function show($id)
     {
 
