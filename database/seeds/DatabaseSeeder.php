@@ -17,13 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $record=new Problem;$record->title="adder"; $record->message="addtwonumbers"; $record->level="0"; $record->save();
+        $record=new Problem;$record->title="adder"; $record->message="addtwonumbers"; $record->level="0"; $record->tolerant="0.01"; $record->save();
         $record=new Problem;$record->title="hello2"; $record->message="hello2"; $record->level="1"; $record->save();
         $record=new Problem;$record->title="hello3"; $record->message="hello3"; $record->level="2"; $record->save();
         $record=new Problem;$record->title="hello4"; $record->message="hello4"; $record->level="3"; $record->save();
         $record=new Problem;$record->title="hello5"; $record->message="hello5"; $record->level="4"; $record->save();
 
         $r=new Testcase;$r->problem_id="1";$r->number="1";$r->input="1 2";$r->output="3";$r->save();
+        $r=new Testcase;$r->problem_id="1";$r->number="2";$r->input="-1 2";$r->output="1";$r->save();
+        $r=new Testcase;$r->problem_id="1";$r->number="3";$r->input="1.1 2.1";$r->output="3.2";$r->save();
+        $r=new Testcase;$r->problem_id="1";$r->number="4";$r->input="1 0";$r->output="1";$r->save();
 
         $r=new Schedule;$r->problem_id=1;$r->start_time='2019-06-21 14:38:31';$r->end_time='2020-06-21 14:38:31';$r->course_id='1';$r->save();
         $r=new Schedule;$r->problem_id=2;$r->start_time='2019-06-21 14:38:31';$r->end_time='2020-06-21 14:38:31';$r->course_id='1';$r->save();
@@ -63,7 +66,7 @@ class DatabaseSeeder extends Seeder
         $x='std8';
         $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std99';
-        $r=new User;$r->name=$x;$r->email=$x;
+        $r=new User;$r->name=$x;$r->email=$x.'@mail.com';
         $r->password='$2y$10$I2Eqop.BfcWoneTH0cAug.5KrLSlqud3PKg9ryPb7iWTS.TyT3aLi';
         $r->save();
 
