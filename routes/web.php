@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('showtask','ShowTask');
+Route::resource('scoreboard','ScoreboardController');
 Route::resource('submission','SubmissionController');
 Route::get('/submission/{problem_id}/{schedule_id}','SubmissionController@showproblem');
 
