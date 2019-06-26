@@ -84,10 +84,10 @@ class ScoreboardController extends Controller
             $outputsol[]=[$testcase->number=$testcase->output,];
         }
         foreach($answers as $ans){
-            $answer[]=[ Analysis::find($ans->testcase_id)['number'] =>   $ans->output,];           
+            $answer[]=[ Analysis::find($ans->testcase_id)->number =   $ans->output,];           
         }
 
-        return view('scoreboard.analysis')->with('payload',['input'=>$inputsol,'solution'=>$outputsol,'answer'=>$answer,'message'=>$messages,'submission'=>$submission]);
+        return  view('scoreboard.analysis')->with('payload',['input'=>$inputsol,'solution'=>$outputsol,'answer'=>$answer,'message'=>$messages,'submission'=>$submission]);
     }
 
     /**
