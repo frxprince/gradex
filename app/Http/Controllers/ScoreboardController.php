@@ -11,6 +11,8 @@ use App\Problem;
 use App\Submission;
 use App\Waitinglist;
 use Carbon\Carbon;
+use App\Analysis;
+use App\Testcase;
 use Session;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,8 +73,21 @@ class ScoreboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   $submission=Submission::find($id);
+        $testcases=Testcase::where('problem_id','=',$submission->problem_id)->get();
+        $answers=Analysis::where('submission_id','=',$id)->get();
+        $inputsol=[]; $outputsol=[];$answer=[];
+        $messages=str_split($submission->message,1);
+
+        foreach($testcases as $testcase){
+            $inputsol[]=[$testcase->number=$testcase->input,];
+            $outputsol[]=[$testcase->number=$testcase->output,];
+        }
+        foreach($answers as $ans){
+            $answer[]=[ Analysis::find($ans->testcase_id)['number'] =>   $ans->output,];           
+        }
+
+        return view('scoreboard.analysis')->with('payload',['input'=>$inputsol,'solution'=>$outputsol,'answer'=>$answer,'message'=>$messages,'submission'=>$submission]);
     }
 
     /**
