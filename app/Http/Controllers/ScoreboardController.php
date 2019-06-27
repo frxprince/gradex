@@ -47,20 +47,45 @@ class ScoreboardController extends Controller
 
 
 public function classroom(){
-
-    foreach(session('courses') as $course){
-        echo $course['title'].'<br>';
-        $tasks=Schedule::where('course_id',$course['id'])->get();
+    $spreadsheet=[];
+    foreach(session('courses') as $course){  //list all course
+        $columns=[];
+        $tasks=Schedule::where('course_id',$course['id'])->get();   //list all task in course
+        $problems=[];
+        $allscore=[];
+        $sumscore=[];
           foreach($tasks->all() as $task)
           {
-              echo($task->problem->title)."  ";  echo($task->problem_id);
+            $problems[]=$task->problem->title;
+                $Students=Classroom::where('course_id','=',$task->course_id)->get();   // list student in the course
+                $names=[];
+                foreach($Students as $student_id=>$student){
+                 $names[]=$student->user->name;
+                      $score=Submission::where('schedule_id','=',$task->id)->where('user_id','=',$student->user->id)->orderBy('created_at','desc')->first();  //get score for each task of each student
+                      if($score !=null)
+                      {  if(array_key_exists($student_id,$sumscore)){
+                          $sumscore[$student_id]=$sumscore[$student_id]+$score->score;
+                        }else{
+                            $sumscore[$student_id]=$score->score;
+                        }
 
-        echo '<br>';
+                        $scores[]=$score->score;
+                      }else{
+                        if(array_key_exists($student_id,$sumscore)){
+                            $sumscore[$student_id]=$sumscore[$student_id]+0;
+                          }else{
+                              $sumscore[$student_id]=0;
+                          }
+                        $scores[]=0;
+                      }
+                }
+$allscore[]=$scores;
+$scores=[];
           }
+       $spreadsheet[]=['course'=>$course['title'],'name'=>$names,'problem'=>$problems,'score'=>$allscore,'sum'=>$sumscore];
     }
-
-      return "hello";
-}
+      return $spreadsheet;
+    }
 
 
 
