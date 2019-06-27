@@ -45,6 +45,25 @@ class ScoreboardController extends Controller
         return view('scoreboard.index')->with('payload',$scores);
     }
 
+
+public function classroom(){
+
+    foreach(session('courses') as $course){
+        echo $course['title'].'<br>';
+        $tasks=Schedule::where('course_id',$course['id'])->get();
+          foreach($tasks->all() as $task)
+          {
+              echo($task->problem->title)."  ";  echo($task->problem_id);
+
+        echo '<br>';
+          }
+    }
+
+      return "hello";
+}
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -84,7 +103,7 @@ class ScoreboardController extends Controller
             $outputsol[]=[$testcase->number=$testcase->output,];
         }
         foreach($answers as $ans){
-            $answer[]=[ Analysis::find($ans->testcase_id)->number =   $ans->output,];           
+            $answer[]=[ Analysis::find($ans->testcase_id)->number =   $ans->output,];
         }
 
         return  view('scoreboard.analysis')->with('payload',['input'=>$inputsol,'solution'=>$outputsol,'answer'=>$answer,'message'=>$messages,'submission'=>$submission]);
@@ -138,10 +157,10 @@ class ScoreboardController extends Controller
         $tasklist=[];
    foreach (session('courses') as $course) {
        if($duration=='all')
-       {$tasks=Schedule::where('course_id',$course['id'])->get();
+       {$tasks=Schedule::where('course_id','=',$course['id'])->get();
 
        }else{
-       $tasks=Schedule::where('course_id',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
+       $tasks=Schedule::where('course_id','=',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
        }
       $tasklist[]=[
          'title'=>$course['title'],
