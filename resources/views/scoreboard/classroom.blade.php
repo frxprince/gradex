@@ -11,14 +11,16 @@
     @foreach ($course['problem'] as $problem)
         <th>{{$problem}}</th>
     @endforeach
+    <th class="text-primary">Sum</th>
     </tr>    
 </thead> 
 @foreach ($course['name'] as $std_id=>$name)
 <tr>
         <th>{{$name}}</th>
         @foreach ($course['problem'] as $key=>$score)
-        <th>{{$course['score'][$std_id]}}</th>
+        <th>{{$course['score'][$key][$std_id]}}</th>
         @endforeach
+        <th class="text-primary">{{$course['sum'][$std_id]}}</th>
 </tr>
    
 @endforeach

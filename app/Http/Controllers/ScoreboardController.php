@@ -84,7 +84,7 @@ $scores=[];
           }
        $spreadsheet[]=['course'=>$course['title'],'name'=>$names,'problem'=>$problems,'score'=>$allscore,'sum'=>$sumscore];
     }
-      return $spreadsheet;//view('scoreboard.classroom')->with('payload',$spreadsheet);
+      return view('scoreboard.classroom')->with('payload',$spreadsheet);
     }
 
 
