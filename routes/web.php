@@ -18,7 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('scoreboard','ScoreboardController');
-Route::resource('submission','SubmissionController');
+Route::resource('/scoreboard','ScoreboardController');
+Route::resource('/submission','SubmissionController');
 Route::get('/submission/{problem_id}/{schedule_id}','SubmissionController@showproblem');
 Route::get('classroom','ScoreboardController@classroom');
+Route::get('/changePassword','HomeController@showChangePasswordForm');
+Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
+Route::resource('/info','InfoController');
