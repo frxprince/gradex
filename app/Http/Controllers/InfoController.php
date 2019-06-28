@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Classroom;
+use App\Course;
+use Illuminate\Support\Facades\Auth;
 
 class InfoController extends Controller
 {
@@ -12,8 +16,13 @@ class InfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('info.index');
+    { $tasks=User::find(Auth::user()->id)->classrooms;
+        $x='';
+        $courses=array();
+        foreach ($tasks as $task) {
+           array_push($courses,array('id'=>$task->course->id,'title'=>$task->course->name ));
+        }
+        return view('info.index')->with('payload',$courses);
     }
 
     /**
@@ -67,10 +76,23 @@ class InfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   $this->validate($request,['name'=>'required','name'=>'required','email'=>'required','alias'=>'required']);
+    {   $this->validate($request,['name'=>'required','email'=>'required','alias'=>'required','stdid'=>'required']);
         print_r($request->input());
         print_r($id);
-        return "";
+        $user=User::find($id);
+        $user->name=$request->input('name');
+        $user->email=$request->input('email');
+        $user->stdid=$request->input('stdid');
+        $user->alias=$request->input('alias');
+      $user->save();
+      $tasks=User::find(Auth::user()->id)->classrooms;
+      $x='';
+      $courses=array();
+      foreach ($tasks as $task) {
+         array_push($courses,array('id'=>$task->course->id,'title'=>$task->course->name ));
+      }
+
+        return redirect('\info')->with('payload',$courses)->withErrors(array('message'=>'Your information has been updated!!'));;
     }
 
     /**
