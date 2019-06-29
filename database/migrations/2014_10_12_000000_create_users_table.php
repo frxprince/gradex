@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('alias', 100)->nullable();
             $table->boolean('admin')->default(false);
             $table->boolean('ta')->default(false);
+            $table->string('lang', 20)->default('C');
 
         });
     }

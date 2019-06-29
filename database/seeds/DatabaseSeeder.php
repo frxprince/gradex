@@ -73,23 +73,23 @@ class DatabaseSeeder extends Seeder
 
 
         $x='std1';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std2';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std3';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std4';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std5';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std6';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std7';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std8';
-        $r=new User;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x;$r->password=$x;$r->save();
         $x='std99';
-        $r=new User;$r->name=$x;$r->email=$x.'@mail.com';
+        $r=new User;$r->username=$x;$r->name=$x;$r->email=$x.'@mail.com';
         $r->password='$2y$10$I2Eqop.BfcWoneTH0cAug.5KrLSlqud3PKg9ryPb7iWTS.TyT3aLi';
         $r->save();
 

@@ -1,6 +1,12 @@
 @extends('submission.mainlayout')
 @section('rightpanel')
 <h2>Analysis mode</h2>
+@if (count($payload)==0)
+    <br>
+    You have no submission!
+@else
+    
+
 <p>Compiler message:
     @if ($payload['submission']->compiler_message ==null)
         No message
@@ -12,10 +18,10 @@
     <br>
 @foreach ($payload['message'] as $key=> $message)
 @if ($message=='Y')
-<button type="button" class="btn btn-success" onclick="show_analysis(&quot;{{$payload['input'][$key][0]}}&quot;,&quot;{{$payload['solution'][$key][0]}}&quot;,&quot;{{$payload['answer'][$key][0]}}&quot;);">{{$message}}</button>
+<button type="button" class="btn btn-success" onclick="show_analysis(&quot;{{$payload['input'][$key]}}&quot;,&quot;{{$payload['solution'][$key]}}&quot;,&quot;{{$payload['answer'][$key]}}&quot;);">{{$message}}</button>
 
 @else
-<button type="button" class="btn btn-danger" onclick="show_analysis(&quot;{{$payload['input'][$key][0]}}&quot;,&quot;{{$payload['solution'][$key][0]}}&quot;,&quot;{{$payload['answer'][$key][0]}}&quot;);">{{$message}}</button>
+<button type="button" class="btn btn-danger" onclick="show_analysis(&quot;{{$payload['input'][$key]}}&quot;,&quot;{{$payload['solution'][$key]}}&quot;,&quot;{{$payload['answer'][$key]}}&quot;);">{{$message}}</button>
 
 @endif
 
@@ -30,7 +36,8 @@
         </thead> 
         <tr><th><p id="input"></th><th><p id="output"></th><th><p id="answer"></th>
         </tr>   
-        </table>    
+        </table> 
+        @endif   
 @endsection
 <script>
 function show_analysis(input,output,answer){

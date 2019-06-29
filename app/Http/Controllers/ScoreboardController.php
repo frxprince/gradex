@@ -18,6 +18,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ScoreboardController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        if( array_key_exists('courses',session())){
+            return redirect('/home');
+        }
+
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,6 +58,9 @@ class ScoreboardController extends Controller
 
 
 public function classroom(){
+    if( session('courses')==null){
+        return redirect('/home');
+    }
     $spreadsheet=[];
     foreach(session('courses') as $course){  //list all course
         $columns=[];
@@ -82,6 +96,7 @@ public function classroom(){
 $allscore[]=$scores;
 $scores=[];
           }
+          
        $spreadsheet[]=['course'=>$course['title'],'name'=>$names,'problem'=>$problems,'score'=>$allscore,'sum'=>$sumscore];
     }
       return view('scoreboard.classroom')->with('payload',$spreadsheet);
@@ -118,17 +133,20 @@ $scores=[];
      */
     public function show($id)
     {   $submission=Submission::find($id);
+        if($submission==null){
+            return  view('scoreboard.analysis')->with('payload',[]);
+        }
         $testcases=Testcase::where('problem_id','=',$submission->problem_id)->get();
         $answers=Analysis::where('submission_id','=',$id)->get();
         $inputsol=[]; $outputsol=[];$answer=[];
         $messages=str_split($submission->message,1);
 
         foreach($testcases as $testcase){
-            $inputsol[]=[$testcase->number=$testcase->input,];
-            $outputsol[]=[$testcase->number=$testcase->output,];
+            $inputsol[]=$testcase->number=$testcase->input;
+            $outputsol[]=$testcase->number=$testcase->output;
         }
         foreach($answers as $ans){
-            $answer[]=[ Analysis::find($ans->testcase_id)->number =   $ans->output,];
+            $answer[]=Analysis::find($ans->testcase_id)->number =   $ans->output;
         }
 
         return  view('scoreboard.analysis')->with('payload',['input'=>$inputsol,'solution'=>$outputsol,'answer'=>$answer,'message'=>$messages,'submission'=>$submission]);

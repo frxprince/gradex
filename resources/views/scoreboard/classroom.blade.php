@@ -20,7 +20,12 @@
         @foreach ($course['problem'] as $key=>$score)
         <th>{{$course['score'][$key][$std_id]}}</th>
         @endforeach
-        <th class="text-primary">{{$course['sum'][$std_id]}}</th>
+    @if (count($course['problem'])>0)
+    <th class="text-primary">{{$course['sum'][$std_id]}}</th>
+    @else
+    <th class="text-primary">0</th>
+    @endif
+       
 </tr>
    
 @endforeach

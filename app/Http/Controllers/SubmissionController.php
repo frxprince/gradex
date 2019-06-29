@@ -77,6 +77,15 @@ return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'p
      */
     public function store(Request $request)
     {  $this->validate($request,['Lang'=>'required','problem_id'=>'required']);
+
+
+// add date check $request->input('schedule_id');
+$now=Carbon::now()->toDateTimeString();
+        $passdue=Schedule::where('id','=',$request->input('schedule_id'))->where('end_time','<=',$now)->count();
+        if($passdue>0){
+            return redirect('/submission/'.$request->input('problem_id').'/'.$request->input('schedule_id'))->withErrors(array('message'=>'The submission of this task is no longer allowed! +_+'));
+        }
+
         if($request->hasFile('sourcefile')){
 
             $submission=new Submission;
@@ -94,13 +103,17 @@ return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'p
 
             $waitinglist=new Waitinglist;
             $waitinglist->submission_id= $submission->id;
+
+            $user=User::find(auth()->user()->id);
+            $user->lang=$request->input('Lang');
+            $user->save();
             $waitinglist->save();
 
 
 return  redirect('/submission/'.$submission->id.'/edit')->with('success','Scccessfully uploaded!');
         }else{
 
-            return redirect('/submission/'.$request->input('problem_id'))->withErrors(array('message'=>'File not found!!'));
+            return redirect('/submission/'.$request->input('problem_id').'/'.$request->input('schedule_id'))->withErrors(array('message'=>'File not found!!'));
         }
 
     }

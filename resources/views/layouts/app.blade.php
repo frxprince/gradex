@@ -62,7 +62,7 @@
                                 <a class="dropdown-item" href="/scoreboard">
                                     My score
                                 </a>
-                                <a class="dropdown-item" href="/scoreboard/classroom">
+                                <a class="dropdown-item" href="/classroom">
                                     Classroom score
                                 </a>
 
