@@ -25,3 +25,11 @@ Route::get('classroom','ScoreboardController@classroom');
 Route::get('/changePassword','HomeController@showChangePasswordForm');
 Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
 Route::resource('/info','InfoController');
+Route::resource('/admin','AdminController');
+
+Route::get('/adminPage/addnewclassroom', function () {
+    return view('admin.addclassroom');
+});
+
+Route::get('/adminPage/addstudent','AdminController@addstudent');
+//Route::get('/admin/addclassroom/{id}','AdminController');
