@@ -28,6 +28,13 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+
+    public function testcase_get_count(Request $request)
+    {
+       return response()->json(['success' =>Testcase::where('problem_id','=',$request->input('problem_id'))->count()]);
+       //return response()->json(['success'=>'Data is successfully added']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,6 +51,12 @@ class AdminController extends Controller
         return view('admin.addstudent')->with('payload',$courses);
     }
 
+    public function addtestcase()
+    {
+        $problems=Problem::get();
+        return view('admin.addnewtestcase')->with('payload',$problems);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,7 +66,16 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['mode'=>'required']);
-      
+      if($request->input('mode')=='addnewproblem')
+      {
+          $p=new Problem;
+          $p->title=$request->input('title');
+          $p->message=$request->input('detail');
+          $p->level=$request->input('level');
+          $p->tolerant=$request->input('tolerant');
+          $p->save();
+          return view('admin.index')->withErrors(array('message'=>'The new problem has been added!!'));
+      }
         if($request->input('mode')=='addnewstudent')
         { Excel::import(new UsersImport, request()->file('students'));
             $users = Excel::toArray(new UsersImport, request()->file('students'));
