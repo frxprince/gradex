@@ -31,5 +31,9 @@ Route::get('/adminPage/addnewclassroom', function () {
     return view('admin.addclassroom');
 });
 
+Route::get('/adminPage/addnewproblem', function () {
+    return view('admin.addproblem');
+});
+
 Route::get('/adminPage/addstudent','AdminController@addstudent');
 //Route::get('/admin/addclassroom/{id}','AdminController');
