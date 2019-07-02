@@ -5,13 +5,13 @@ Add new testcase<br>
 @foreach ($payload as $item)
 <?php 
 $problems[]=[$item['id']=>$item['title']];
-
+$ids[]=['onchange'=>'sclick('.$item['id'].')'];
 ?>    
 @endforeach
 {!! Form::open(['action'=>'AdminController@store','method'=>'POST']) !!}
 {!! Form::hidden("mode", "addnewtestcase") !!}
 {!! Form::label("coursename", "Course Name:") !!}
-{!! Form::select("problem", $problems) !!}
+{!! Form::select("problem", $problems,'default',array('onchange' => 'sclick(this)')) !!}
 <p id="button_area"></p><br>
 
 <table>
@@ -21,29 +21,83 @@ $problems[]=[$item['id']=>$item['title']];
     </thead>
     <tr>
         <td>
-        {!! Form::textarea('input','') !!}
+        {!! Form::textarea('input','',['id'=>'input']) !!}
         </td>
         <td>
-            {!! Form::textarea('output','') !!}
+            {!! Form::textarea('output','',['id'=>'output']) !!}
         </td>
     </tr>
 </table>
 
 
-
+<p id='cmd_button'> </p>
 {!! Form::submit("Submit", ['class'=>'btn btn-lg btn-success btn-block']) !!}
 {!! Form::close() !!}
 
 <script>
-jQuery(document).ready(function(){
-    //https://appdividend.com/2018/02/07/laravel-ajax-tutorial-example/
-//https://investmentnovel.com/laravel-dependent-dropdown-tutorial-with-example/
+    var alltestcase;
+
+function drawbutton(){
+    var i=0
+var tmp='';
+var myNode = document.getElementById("button_area");
+myNode.innerHTML = '';
+    for(i=0;i<alltestcase.length;i++){
+       // alert(alltestcase[i].input);\
+       tmp=tmp+'<button type="button" class="btn btn-success" onclick="show_testcase('+ i +');">'+ i +'</button>';
+var cell4 = document.getElementById('button_area');
+var element3 = document.createElement("input");
+element3.type = "button";
+element3.name = "testcase";
+element3.value=i;
+element3.className="btn btn-outline-info btn-xs p-1";
+element3.onclick=function() { show_testcase(this.value); };
+cell4.appendChild(element3);
+    }
+var cell4 = document.getElementById('button_area');
+var element3 = document.createElement("input");
+element3.type = "button";
+element3.name = "testcase";
+element3.value='+';
+element3.className="btn btn-outline-danger btn-xs ";
+element3.onclick=function() { add_testcase(); };
+cell4.appendChild(element3);
+   // $('#button_area').text(tmp);
+}
+
+function add_testcase(){
+    $('#input').text("input");
+    $('#output').text("output");
+    var myNode = document.getElementById("cmd_button");
+myNode.innerHTML = '';
+var cell4 = document.getElementById('cmd_button');
+var element3 = document.createElement("input");
+element3.type = "button";
+element3.name = "testcase";
+element3.value='Save data';
+element3.className="btn btn-outline-danger btn-xs ";
+element3.onclick=function() { alert('saving'); };
+cell4.appendChild(element3);
+}
+function show_testcase(ind){
+    $('#input').text(alltestcase[ind].input);
+    $('#output').text(alltestcase[ind].output);
+    var myNode = document.getElementById("cmd_button");
+myNode.innerHTML = '';
+var cell4 = document.getElementById('cmd_button');
+var element3 = document.createElement("input");
+element3.type = "button";
+element3.name = "testcase";
+element3.value='Update data';
+element3.className="btn btn-outline-danger btn-xs ";
+element3.onclick=function() { alert('updating'); };
+cell4.appendChild(element3);
+}
+    function sclick(pid){
+//alert(pid.value);
 
 
-
- // request existing testcase
-
- $.ajaxSetup({
+$.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                   }
@@ -52,12 +106,22 @@ jQuery(document).ready(function(){
                   url: "{{ url('/adminAjax/getTestcaseCount')}}",
                   method: 'get',
                   data: {
-                     problem_id: '1'
+                     problem_id: pid.value
                   },
                   success: function(result){
-                     alert(result.success);                  
-                    
-                  }});              
+                     alltestcase=result;
+                    drawbutton();
+                  }});  
+    }
+jQuery(document).ready(function(){
+    //https://appdividend.com/2018/02/07/laravel-ajax-tutorial-example/
+//https://investmentnovel.com/laravel-dependent-dropdown-tutorial-with-example/
+
+
+
+ // request existing testcase
+
+   
 
 //alert("loaded");
 });

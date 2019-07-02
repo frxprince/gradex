@@ -31,7 +31,7 @@ class AdminController extends Controller
 
     public function testcase_get_count(Request $request)
     {
-       return response()->json(['success' =>Testcase::where('problem_id','=',$request->input('problem_id'))->count()]);
+       return response()->json(Testcase::where('problem_id','=',$request->input('problem_id'))->get());
        //return response()->json(['success'=>'Data is successfully added']);
     }
 
