@@ -28,7 +28,10 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+public function schedule_get_from_classroom(Request $request){
+return response()->json(Schedule::where('course_id','=',$request->input('course_id'))->get());
 
+}
 
     public function addschedule()
     {
