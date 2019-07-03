@@ -29,7 +29,13 @@ class AdminController extends Controller
     }
 
 public function schedule_get_from_classroom(Request $request){
-return response()->json(Schedule::where('course_id','=',$request->input('course_id'))->get());
+    $schedule=Schedule::where('course_id','=',$request->input('course_id'))->get();
+    foreach ($schedule as $key => $item) {
+        $problem=Problem::where('id','=',$item->problem_id)->first();
+        $tasks[]=['schedule'=>$item,'problem'=>$problem->title];
+    }
+
+return response()->json($tasks);
 
 }
 

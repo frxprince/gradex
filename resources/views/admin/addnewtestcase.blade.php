@@ -69,7 +69,7 @@ var myNode = document.getElementById("button_area");
 myNode.innerHTML = '';
     for(i=0;i<alltestcase.length;i++){
        // alert(alltestcase[i].input);\
-       tmp=tmp+'<button type="button" class="btn btn-success" onclick="show_testcase('+ i +');">'+ i +'</button>';
+      
 var cell4 = document.getElementById('button_area');
 var element3 = document.createElement("input");
 element3.type = "button";
