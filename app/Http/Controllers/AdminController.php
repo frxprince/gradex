@@ -29,6 +29,40 @@ class AdminController extends Controller
     }
 
 
+
+    public function addschedule()
+    {
+        $courses=Course::get();
+        return view('admin.addschedule')->with('payload',$courses);
+    }
+
+
+
+    public function testcase_set_add(Request $request)
+    {
+        if($request->input('testcase_no')!='-1'){
+//update
+            $testcase=Testcase::where('problem_id','=',$request->input('problem_id'))->where('number','=',$request->input('testcase_no'))->first();
+            $testcase->input=$request->input('input');
+            $testcase->output=$request->input('output');
+            $testcase->save();
+         //   $testcase->save();
+        }else{
+//add new
+            $testcase=Testcase::where('problem_id','=',$request->input('problem_id'))->count();
+            $newtestcase=new Testcase;
+            $newtestcase->problem_id=$request->input('problem_id');
+            $newtestcase->input=$request->input('input');
+            $newtestcase->output=$request->input('output');
+            $newtestcase->number=$testcase+1;
+            $newtestcase->save();
+        }
+          //  return response()->json(Testcase::where('problem_id','=',$request->input('problem_id'))->get());
+
+          return response()->json(Testcase::where('problem_id','=',$request->input('problem_id'))->get());
+    }
+
+
     public function testcase_get_count(Request $request)
     {
        return response()->json(Testcase::where('problem_id','=',$request->input('problem_id'))->get());
@@ -57,6 +91,8 @@ class AdminController extends Controller
         return view('admin.addnewtestcase')->with('payload',$problems);
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -66,6 +102,9 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['mode'=>'required']);
+
+
+
       if($request->input('mode')=='addnewproblem')
       {
           $p=new Problem;
@@ -89,14 +128,14 @@ class AdminController extends Controller
                 $classroom->save();
             }
             return view('admin.index')->withErrors(array('message'=>'The new students as been added to classroom!!'));
-           
+
         }
 
 
 
         if($request->input('mode')=='addnewclassroom')
         {
-        
+
         $course=new Course;
         $course->name=$request->input('coursename');
         $course->save();
@@ -106,9 +145,9 @@ class AdminController extends Controller
     }
 
 
- 
 
-    
+
+
     /**
      * Display the specified resource.
      *

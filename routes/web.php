@@ -38,4 +38,7 @@ Route::get('/adminPage/addnewproblem', function () {
 Route::get('/adminPage/addstudent','AdminController@addstudent');
 Route::get('/adminPage/addnewtestcase','AdminController@addtestcase');
 Route::get('/adminAjax/getTestcaseCount','AdminController@testcase_get_count');
+Route::get('/adminAjax/updateTestcase','AdminController@testcase_set_add');
+
+Route::get('/adminPage/addnewschedule','AdminController@addschedule');
 //Route::get('/admin/addclassroom/{id}','AdminController');
