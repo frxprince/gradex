@@ -1,4 +1,4 @@
-@extends('submission.mainlayout')
+@extends('scoreboard.mainlayout')
 @section('rightpanel')
 @include('scoreboard.myscore')
 @endsection

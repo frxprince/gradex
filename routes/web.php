@@ -42,4 +42,6 @@ Route::get('/adminAjax/updateTestcase','AdminController@testcase_set_add');
 
 Route::get('/adminPage/addnewschedule','AdminController@addschedule');
 Route::get('/adminAjax/schedule_get_from_classroom','AdminController@schedule_get_from_classroom');
+Route::get('/adminAjax/schedule_manage/{id}','AdminController@schedule_manage');
+Route::get('/adminPage/add_new_task_to_schedule/{id}','AdminController@schedule_add');
 //Route::get('/admin/addclassroom/{id}','AdminController');

@@ -74,7 +74,7 @@ public function classroom(){
                 $Students=Classroom::where('course_id','=',$task->course_id)->get();   // list student in the course
                 $names=[];
                 foreach($Students as $student_id=>$student){
-                 $names[]=$student->user->name;
+                 $names[]=$student->user->alias;
                       $score=Submission::where('schedule_id','=',$task->id)->where('user_id','=',$student->user->id)->orderBy('created_at','desc')->first();  //get score for each task of each student
                       if($score !=null)
                       {  if(array_key_exists($student_id,$sumscore)){
@@ -96,7 +96,7 @@ public function classroom(){
 $allscore[]=$scores;
 $scores=[];
           }
-          
+
        $spreadsheet[]=['course'=>$course['title'],'name'=>$names,'problem'=>$problems,'score'=>$allscore,'sum'=>$sumscore];
     }
       return view('scoreboard.classroom')->with('payload',$spreadsheet);

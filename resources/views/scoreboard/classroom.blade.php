@@ -1,6 +1,6 @@
-@extends('submission.mainlayout')
+@extends('scoreboard.mainlayout')
 @section('rightpanel')
- <h2>Classroom score</h2>   
+ <h2>Classroom score</h2>
  @foreach ($payload as $course)
  {{$course['course']}}
   <br>
@@ -12,8 +12,8 @@
         <th>{{$problem}}</th>
     @endforeach
     <th class="text-primary">Sum</th>
-    </tr>    
-</thead> 
+    </tr>
+</thead>
 @foreach ($course['name'] as $std_id=>$name)
 <tr>
         <th>{{$name}}</th>
@@ -25,10 +25,10 @@
     @else
     <th class="text-primary">0</th>
     @endif
-       
+
 </tr>
-   
+
 @endforeach
-</table>    
+</table>
  @endforeach
 @endsection

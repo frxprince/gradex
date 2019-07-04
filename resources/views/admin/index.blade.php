@@ -15,7 +15,7 @@
 </div>
 
 <div class="row mt-2">
-    <a href="/adminPage/addnewschedule" class="btn btn-danger" type="button">Asign problem to existing classroom</a>
+    <a href="/adminPage/addnewschedule" class="btn btn-danger" type="button">Scheduling manager</a>
 </div>
 @else
     @include('admin.noadmin')

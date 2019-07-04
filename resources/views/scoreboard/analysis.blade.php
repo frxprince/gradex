@@ -5,7 +5,7 @@
     <br>
     You have no submission!
 @else
-    
+
 
 <p>Compiler message:
     @if ($payload['submission']->compiler_message ==null)
@@ -13,7 +13,7 @@
     @else
     {{$payload['submission']->compiler_message}}
     @endif
-   
+
 <p>Score:{{$payload['submission']->score}}
     <br>
 @foreach ($payload['message'] as $key=> $message)
@@ -33,11 +33,11 @@
             <tr>
             <th>Input</th><th>Solution</th><th>Your output</th>
             </tr>
-        </thead> 
+        </thead>
         <tr><th><p id="input"></th><th><p id="output"></th><th><p id="answer"></th>
-        </tr>   
-        </table> 
-        @endif   
+        </tr>
+        </table>
+        @endif
 @endsection
 <script>
 function show_analysis(input,output,answer){

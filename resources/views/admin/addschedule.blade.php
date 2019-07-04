@@ -18,8 +18,9 @@
                     <th>Start</th>
                     <th>End</th>
                     <th>Tasks</th>
+                    <th>Score</th>
                 </thead>
-           
+
         </table>
 
     </div>
@@ -28,7 +29,7 @@
     </div>
 </div>
 
-
+<button class='btn btn-lg btn-outline-success ' disabled id='button1' onclick='addproblem();'> Add new task</button>
 @else
     @include('admin.noadmin')
 @endif
@@ -36,8 +37,17 @@
 <script>
     var allschedule;
     var allproblem;
+    var classid;
+
+function addproblem(){
+    window.location.replace("/adminPage/add_new_task_to_schedule/"+classid);
+}
+
 
 function drawschedule(){
+    var myNode = document.getElementById("leftcol");
+myNode.innerHTML = '';
+if(allschedule=='')return;
     allschedule.forEach(element => {
 // change to add element
 //alert(JSON.stringify(element));
@@ -45,7 +55,7 @@ function drawschedule(){
 var cell4 = document.getElementById('leftcol');
 var tablerow = document.createElement("TR");
 var tablecol = document.createElement("TH");
-/*var t = document.createTextNode(element.schedule.id); 
+/*var t = document.createTextNode(element.schedule.id);
 tablecol.appendChild(t);
 tablerow.appendChild(tablecol);
 cell4.appendChild(tablerow);
@@ -55,7 +65,7 @@ element3.type = "button";
 element3.name = "manage";
 element3.value='Manage';
 element3.className="btn btn-outline-info btn-xs p-1";
-element3.onclick=function() {window.location.href='/admin'; };
+element3.onclick=function() {window.location.href='/adminAjax/schedule_manage/'+element.schedule.id;};
 tablecol.appendChild(element3);
 tablerow.appendChild(tablecol);
 cell4.appendChild(tablerow);
@@ -64,29 +74,36 @@ cell4.appendChild(tablerow);
 
 
 var tablecol = document.createElement("TH");
-var t = document.createTextNode(element.schedule.start_time); 
+var t = document.createTextNode(element.schedule.start_time);
 tablecol.appendChild(t);
 tablerow.appendChild(tablecol);
 cell4.appendChild(tablerow);
 
 var tablecol = document.createElement("TH");
-var t = document.createTextNode(element.schedule.end_time); 
+var t = document.createTextNode(element.schedule.end_time);
 tablecol.appendChild(t);
 tablerow.appendChild(tablecol);
 cell4.appendChild(tablerow);
 
 var tablecol = document.createElement("TH");
-var t = document.createTextNode(element.problem); 
+var t = document.createTextNode(element.problem);
 tablecol.appendChild(t);
 tablerow.appendChild(tablecol);
 cell4.appendChild(tablerow);
 
+var tablecol = document.createElement("TH");
+var t = document.createTextNode(element.schedule.score);
+tablecol.appendChild(t);
+tablerow.appendChild(tablecol);
+cell4.appendChild(tablerow);
   //   alert(JSON.stringify(element));
     });
 
 }
 
 function sclick(pid){
+    $('#button1').removeAttr('disabled');
+    classid=pid.value;
     $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -102,33 +119,20 @@ function sclick(pid){
                   success: function(result){
                      //alltestcase=result.;
                //     drawbutton();
+               if(result!='null')
+               {
                allschedule=result;
-         
-                //   alert(JSON.stringify(result));
+               }else{
+                   allschedule="";
+               }
+           //       alert(JSON.stringify(result));
                //    alert('done!');
                drawschedule();
+
                   }});
 
 }
 </script>
 
 
-<div class="modal" tabindex="-1" role="dialog" id="manageschedule">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
+

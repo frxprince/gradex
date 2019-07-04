@@ -28,8 +28,26 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function schedule_add( $id){
+        $problems=Problem::get();
+        $now=Carbon::now()->toDateTimeString();
+        return view('admin.addtasktoschedule')->with(['problems'=>$problems,'course_id'=>$id,'now'=>$now]);
+    }
+
+    public function schedule_manage( $id){
+        $schedule=Schedule::where('id','=',$id)->first();
+        $problems=Problem::get();
+        $problem=Problem::where('id','=',$schedule['problem_id'])->first();
+        return view('admin.manageschedule')->with(['schedule'=>$schedule,'problems'=>$problems,'problem'=>$problem]);//view('admin.manageschedule');
+    }
+
+
+
 public function schedule_get_from_classroom(Request $request){
     $schedule=Schedule::where('course_id','=',$request->input('course_id'))->get();
+    if($schedule->count()==0){
+        return response()->json('null');
+    }
     foreach ($schedule as $key => $item) {
         $problem=Problem::where('id','=',$item->problem_id)->first();
         $tasks[]=['schedule'=>$item,'problem'=>$problem->title];
@@ -113,6 +131,30 @@ return response()->json($tasks);
         $this->validate($request,['mode'=>'required']);
 
 
+        if($request->input('mode')=='addschedule'){
+            foreach ($request->input('problem_list') as $key => $item) {
+                $schedule=new Schedule;
+                $schedule->start_time=$request->input('start_time');
+                $schedule->end_time=$request->input('end_time');
+                $schedule->score=$request->input('score');
+                $schedule->course_id=$request->input('course_id');
+                $schedule->problem_id=$item;
+                $schedule->save();
+            }
+
+return redirect('/adminPage/addnewschedule')->withErrors(array('message'=>'The '.count($request->input('problem_list')).' tasks has been added!!'));
+        }
+
+
+        if($request->input('mode')=='manageschedule'){
+            $schedule=Schedule::find($request->input('schedule_id'));
+            $schedule->start_time=$request->input('start_time');
+            $schedule->end_time=$request->input('end_time');
+            $schedule->score=$request->input('score');
+            $schedule->problem_id=$request->input('problem_id');
+            $schedule->save();
+            return redirect('/adminPage/addnewschedule')->withErrors(array('message'=>'The schedule has been updated!!'));
+        }
 
       if($request->input('mode')=='addnewproblem')
       {
