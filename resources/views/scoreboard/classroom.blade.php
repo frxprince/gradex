@@ -1,8 +1,10 @@
 @extends('scoreboard.mainlayout')
 @section('rightpanel')
- <h2>Classroom score</h2>
+ <h4>Classroom score</h4>
+ <br>
  @foreach ($payload as $course)
- {{$course['course']}}
+ <div class="container">
+ <center><h4>{{$course['course']}}</h4></center>
   <br>
  <table class="table">
 <thead>
@@ -25,10 +27,9 @@
     @else
     <th class="text-primary">0</th>
     @endif
-
 </tr>
-
 @endforeach
-</table>
+</table>     
+</div>
  @endforeach
 @endsection
