@@ -18,7 +18,7 @@
      @foreach ($course['scores'] as $scores)
          <tr>
              <td>
-                    {{$scores['user_id']}}   {{$scores['alias']}}
+                    {{//$scores['user_id']}}   {{$scores['alias']}}
              </td>
             @foreach ($scores['scores'] as $score)
                 <td>
