@@ -57,6 +57,43 @@ class ScoreboardController extends Controller
     }
 
 
+
+public function classroom(){
+    if( session('courses')==null){
+        return redirect('/home');
+    }
+    $spreadsheet=[];
+
+    foreach(session('courses') as $course){  //list all course
+        $tasks=[];$names=[];$scores=[];
+               $tasks=Schedule::where('course_id','=',$course['id'])->get();
+        $students=Classroom::where('course_id','=',$course['id'])->get();
+        foreach ($students as $key => $student) {
+           $name[]=$student->user->username;
+           $score=[];
+           $sum=0;
+           $problems=[];
+            foreach ($tasks as $key => $task) {
+                $result=Submission::where('user_id','=',$student->user->id)->where('problem_id','=',$task->problem->id)->where('schedule_id','=',$task->id)->orderBy('created_at','desc')->first();
+                if($result !=null)
+                {
+                $score[]=$result->score;
+                $sum=$sum+$result->score;
+                }else{
+                    $score[]=0;
+                }
+                $problems[]=$task->problem->title;
+            }
+            $score[]=$sum;
+            $scores[]=['user_id'=>$student->user->id,'names'=> $student->user->username,'alias'=> $student->user->alias, 'id'=> $student->user->stdid, 'scores'=>$score,'sum'=>$sum];            
+        }
+        $spreadsheet[]=['courses'=>$course['title'],'scores'=>$scores,'problems'=>$problems];
+    }
+    return view('scoreboard.classroom')->with('payload',$spreadsheet);
+    //return $spreadsheet;
+}
+/*
+
 public function classroom(){
     if( session('courses')==null){
         return redirect('/home');
@@ -102,7 +139,7 @@ $scores=[];
       return view('scoreboard.classroom')->with('payload',$spreadsheet);
     }
 
-
+*/
 
     /**
      * Show the form for creating a new resource.

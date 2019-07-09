@@ -4,32 +4,37 @@
  <br>
  @foreach ($payload as $course)
  <div class="container">
- <center><h4>{{$course['course']}}</h4></center>
+ <center><h4>{{$course['courses']}}</h4></center>
+ <table class='table'>
+     <tr>
+         <thead>
+             <th> Name </th>
+             @foreach ($course['problems'] as $problem)
+         <th>{{$problem}}</th>
+             @endforeach   
+             <th>Sum</th>     
+         </thead>
+     </tr>
+     @foreach ($course['scores'] as $scores)
+         <tr>
+             <td>
+                    {{$scores['user_id']}}   {{$scores['alias']}}
+             </td>
+            @foreach ($scores['scores'] as $score)
+                <td>
+                    {{$score}}
+                </td>
+            @endforeach
+         </tr>
+     @endforeach
+
+
+ </table>
+
+
+
   <br>
- <table class="table">
-<thead>
-    <tr>
-            <th>Name</th>
-    @foreach ($course['problem'] as $problem)
-        <th>{{$problem}}</th>
-    @endforeach
-    <th class="text-primary">Sum</th>
-    </tr>
-</thead>
-@foreach ($course['name'] as $std_id=>$name)
-<tr>
-        <th>{{$name}}</th>
-        @foreach ($course['problem'] as $key=>$score)
-        <th>{{$course['score'][$key][$std_id]}}</th>
-        @endforeach
-    @if (count($course['problem'])>0)
-    <th class="text-primary">{{$course['sum'][$std_id]}}</th>
-    @else
-    <th class="text-primary">0</th>
-    @endif
-</tr>
-@endforeach
-</table>     
-</div>
+
+ </div>
  @endforeach
 @endsection
