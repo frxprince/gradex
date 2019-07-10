@@ -40,7 +40,7 @@ class ScoreboardController extends Controller
         { $subscore=[];$totalscore=0;
          foreach($course['tasks'] as $task)
           {
-            $score=Submission::where('schedule_id','=',$task['id'])->orderBy('created_at','desc')->first();
+            $score=Submission::where('schedule_id','=',$task['id'])->where('user_id','=',auth()->user()->id)->orderBy('created_at','desc')->first();
             $subscore[]=[ 'course'=>$task,'problem'=>Problem::find($task['problem_id']),
 
             'score'=> $score
@@ -85,7 +85,7 @@ public function classroom(){
                 $problems[]=$task->problem->title;
             }
             $score[]=$sum;
-            $scores[]=['user_id'=>$student->user->id,'names'=> $student->user->username,'alias'=> $student->user->alias, 'id'=> $student->user->stdid, 'scores'=>$score,'sum'=>$sum];            
+            $scores[]=['user_id'=>$student->user->id,'names'=> $student->user->username,'alias'=> $student->user->alias, 'id'=> $student->user->stdid, 'scores'=>$score,'sum'=>$sum];
         }
         $spreadsheet[]=['courses'=>$course['title'],'scores'=>$scores,'problems'=>$problems];
     }
