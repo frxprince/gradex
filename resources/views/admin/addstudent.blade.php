@@ -18,7 +18,7 @@ Add new student<br>
     @include('admin.noadmin')
 @endif
 <hr>
-The Excel file must compiled with this format
+The Excel file must contains only one worksheet and compiled with this format
 student id,username, name , email , alias, password
 @endsection
 
