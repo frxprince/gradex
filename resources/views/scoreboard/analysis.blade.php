@@ -16,6 +16,8 @@
 
 <p>Score:{{$payload['submission']->score}}
     <br>
+    Y= Correct, N= Incorrect, T= Timeout, X= No output (Program did not run or Crash)
+    <br>
 @foreach ($payload['message'] as $key=> $message)
 @if ($message=='Y')
 <button type="button" class="btn btn-success" onclick="show_analysis(&quot;{{$payload['input'][$key]}}&quot;,&quot;{{$payload['solution'][$key]}}&quot;,&quot;{{$payload['answer'][$key]}}&quot;);">{{$message}}</button>
