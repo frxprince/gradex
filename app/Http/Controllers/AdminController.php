@@ -23,10 +23,32 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+
+    }
     public function index()
     {
         return view('admin.index');
     }
+
+
+    public function usermodify($id){
+        $user=User::find($id);
+        $classroom=Classroom::where('user_id','=',$id)->get();
+        $course=Course::orderBy('name')->get();
+        return view('admin.usermodify')->with('payload',['user'=>$user,'classroom'=>$classroom,'$course'=>$course]);
+    }
+
+    public function usermanager(){
+        $users=User::orderBy('username')->paginate(10);
+        return view('admin.manageuser')->with('payload',$users);
+    }
+
 
     public function schedule_add( $id){
         $problems=Problem::get();

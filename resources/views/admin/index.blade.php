@@ -5,7 +5,8 @@
 
 <div class="row mt-2">
 <a href="/adminPage/addnewclassroom" class="btn btn-danger " type="button">Make new classroom</a><p>&nbsp;</p>
-<a href="/adminPage/addstudent" class="btn btn-danger " type="button">Add new student to existing classroom</a>
+<a href="/adminPage/addstudent" class="btn btn-danger " type="button">Add new student to existing classroom</a><p>&nbsp;</p>
+<a href="/adminPage/usermanager" class="btn btn-danger " type="button">User manager</a>
 </div>
 
 <div class="row mt-2">
