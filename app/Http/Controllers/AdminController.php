@@ -18,11 +18,7 @@ use Session;
 use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
 
 
     public function __construct()
@@ -36,12 +32,26 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function saveuserinfo(Request $request){
+
+
+        return $request;
+    }
+
+
+    public function userrmclass($id){
+        $classroom=Classroom::find($id);
+        $user_id=$classroom->user_id;
+        $classroom->delete();
+        return redirect('/adminPage/usermodify/'.$user_id)->withErrors(array('message'=>'The user information has been updated!!'));
+    }
+
 
     public function usermodify($id){
         $user=User::find($id);
         $classroom=Classroom::where('user_id','=',$id)->get();
         $course=Course::orderBy('name')->get();
-        return view('admin.usermodify')->with('payload',['user'=>$user,'classroom'=>$classroom,'$course'=>$course]);
+        return view('admin.usermodify')->with('payload',['user'=>$user,'classroom'=>$classroom,'courses'=>$course]);
     }
 
     public function usermanager(){
@@ -118,11 +128,7 @@ return response()->json($tasks);
        //return response()->json(['success'=>'Data is successfully added']);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
@@ -142,16 +148,33 @@ return response()->json($tasks);
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $this->validate($request,['mode'=>'required']);
 
+
+        if($request->input('mode')=='addtoclassroom'){
+            $classroom=Classroom::where('user_id','=',$request->input('user_id'))->where('course_id','=',$request->input('course'))->count();
+            if($classroom>0)return redirect('/adminPage/usermodify/'.$request->input('user_id'))->withErrors(array('message'=>'User aready a member of this classroom!'));
+            
+            $classroom=new Classroom;
+            $classroom->user_id=$request->input("user_id");
+            $classroom->course_id=$request->input('course');
+            $classroom->save();
+            return redirect('/adminPage/usermodify/'.$request->input('user_id'))->withErrors(array('message'=>'The user information has been updated!!'));
+        }
+
+        if($request->input('mode')=='modifyuser'){
+        $user=User::find($request->input('user_id'));
+        $user->name=$request->input('name');
+        $user->alias=$request->input('alias');
+        $user->email=$request->input('email');
+        $user->ta=$request->input('TA');
+        $user->admin=$request->input('admin');
+        $user->save();
+        return redirect('/adminPage/usermodify/'.$request->input('user_id'))->withErrors(array('message'=>'The user information has been updated!!'));
+        }
 
         if($request->input('mode')=='addschedule'){
             foreach ($request->input('problem_list') as $key => $item) {

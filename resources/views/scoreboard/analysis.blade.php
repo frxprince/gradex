@@ -21,12 +21,9 @@
 @foreach ($payload['message'] as $key=> $message)
 @if ($message=='Y')
 <button type="button" class="btn btn-success" onclick="show_analysis(&quot;{{$payload['input'][$key]}}&quot;,&quot;{{$payload['solution'][$key]}}&quot;,&quot;{{$payload['answer'][$key]}}&quot;);">{{$message}}</button>
-
 @else
 <button type="button" class="btn btn-danger" onclick="show_analysis(&quot;{{$payload['input'][$key]}}&quot;,&quot;{{$payload['solution'][$key]}}&quot;,&quot;{{$payload['answer'][$key]}}&quot;);">{{$message}}</button>
-
 @endif
-
 @endforeach
 <br>
 
