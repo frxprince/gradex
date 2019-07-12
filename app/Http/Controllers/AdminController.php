@@ -59,7 +59,6 @@ class AdminController extends Controller
         return view('admin.manageuser')->with('payload',$users);
     }
 
-
     public function schedule_add( $id){
         $problems=Problem::get();
         $now=Carbon::now()->toDateTimeString();
