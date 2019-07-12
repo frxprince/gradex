@@ -55,7 +55,7 @@ class AdminController extends Controller
     }
 
     public function usermanager(){
-        $users=User::orderBy('username')->paginate(10);
+        $users=User::orderBy('username')->paginate(50);
         return view('admin.manageuser')->with('payload',$users);
     }
 
