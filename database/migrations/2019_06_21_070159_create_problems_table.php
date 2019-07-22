@@ -20,6 +20,7 @@ class CreateProblemsTable extends Migration
             $table->longText('message');
             $table->tinyInteger('level');
             $table->string('tolerant', 100)->default('$');
+            $table->bigInteger('user_id');
         });
     }
 

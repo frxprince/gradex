@@ -19,7 +19,7 @@
         {!! Form::hidden("problem_id", $schedule->problem_id,['id'=>'form_problem_id']) !!}
         {!! Form::hidden("schedule_id", $schedule->id) !!}
         {!! Form::label("problem", "Problem:") !!}
-        {!! Form::text("problem", $problem->title, ['class'=>"form-control ",'id'=>'form_problem_title'   ]) !!}
+        {!! Form::text("problem", $problem->title , ['class'=>"form-control ",'id'=>'form_problem_title'   ]) !!}
     </div>
     <br>
         {!! Form::submit("Submit", ['class'=>'btn btn-lg btn-danger btn-block']) !!}

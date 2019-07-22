@@ -12,6 +12,7 @@
 <div class="row mt-2">
 
     <a href="/adminPage/addnewproblem" class="btn btn-danger" type="button">Add new problem</a><p>&nbsp;</p>
+    <a href="/adminPage/manageproblem" class="btn btn-danger" type="button">Manage Problem</a><p>&nbsp;</p>
     <a href="/adminPage/addnewtestcase" class="btn btn-danger" type="button">Add new testcase to existing problem</a>
 </div>
 

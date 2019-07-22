@@ -50,6 +50,9 @@ public function classroom()
 }
 
 
-
+public function problem()
+{
+    return $this->hasMany('App\Problem', 'user_id', 'id');
+}
 
 }

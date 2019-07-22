@@ -32,6 +32,23 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function problem_modify($id){
+        $problem=Problem::where('id','=',$id)->first();
+        return view('admin.modifyproblem')->with('payload',$problem);       
+    }
+    public function problem_delete($id){
+        $problem=Problem::find($id);
+        $problem->delete();
+
+         return redirect('/adminPage/manageproblem/')->withErrors(array('message'=>'The problem was deleted!'));     
+    }
+    public function manageproblem(Request $request){
+$problems= Problem::get();
+
+        return view('admin.manageproblem')->with('payload',$problems);
+    }
+
+
     public function saveuserinfo(Request $request){
 
 
@@ -152,6 +169,16 @@ return response()->json($tasks);
     {
         $this->validate($request,['mode'=>'required']);
 
+        if($request->input('mode')=='modifyproblem'){
+            $problem=Problem::find($request->input('problem_id'));
+            $problem->title=$request->input('title');
+            $problem->message=$request->input('detail');
+            $problem->level=$request->input('level');
+            $problem->tolerant=$request->input('tolerant');
+            $problem->save();
+            return redirect('/adminPage/manageproblem/')->withErrors(array('message'=>'The problem was modified!'));
+        }
+
 
         if($request->input('mode')=='addtoclassroom'){
             $classroom=Classroom::where('user_id','=',$request->input('user_id'))->where('course_id','=',$request->input('course'))->count();
@@ -207,6 +234,7 @@ return redirect('/adminPage/addnewschedule')->withErrors(array('message'=>'The '
           $p->message=$request->input('detail');
           $p->level=$request->input('level');
           $p->tolerant=$request->input('tolerant');
+          $p->user_id=auth()->user()->id;
           $p->save();
           return view('admin.index')->withErrors(array('message'=>'The new problem has been added!!'));
       }

@@ -34,6 +34,10 @@ Route::get('/adminPage/addnewclassroom', function () {
 Route::get('/adminPage/addnewproblem', function () {
     return view('admin.addproblem');
 });
+Route::get('/adminPage/manageproblem','AdminController@manageproblem');
+Route::get('/adminPage/problem_modify/{id}','AdminController@problem_modify');
+Route::get('/adminPage/problem_delete/{id}','AdminController@problem_delete');
+
 
 Route::get('/adminPage/addstudent','AdminController@addstudent');
 Route::get('/adminPage/addnewtestcase','AdminController@addtestcase');

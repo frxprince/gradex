@@ -22,7 +22,7 @@
     <br>
     <div class="form-group">
             @foreach ($problems as $problem)
-            {!! Form::checkbox('problem_list[]', $problem->id, false, ['class'=>'form-group','tag'=> $problem->title ]) !!} : {{$problem->title}}<br>
+    {!! Form::checkbox('problem_list[]', $problem->id, false, ['class'=>'form-group','tag'=> $problem->title ]) !!} : {{$problem->title}} by {{$problem->user->name}}<br>
 
             @endforeach
     </div>
