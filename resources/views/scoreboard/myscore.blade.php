@@ -23,7 +23,12 @@
     <th>  {{$item2['course']['updated_at']}}    </th>
     <th>  {{$item2['score']['updated_at']}} </th>
     <th>  {{$item2['score']['Lang']}} </th>
-<th><a href="/scoreboard/{{$item2['score']['id']}}">{{$item2['score']['message']}}</a></th>
+    @if ($item2['score']['message']=='waiting')
+    <th>waiting</th>
+    @else
+    <th><a href="/scoreboard/{{$item2['score']['id']}}">{{$item2['score']['message']}}</a></th>       
+    @endif
+
 <th>{{$item2['score']['score']}}</th>
 </tr>
 @endforeach
