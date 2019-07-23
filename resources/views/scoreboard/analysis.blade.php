@@ -33,7 +33,7 @@
             <th>Input</th><th>Solution</th><th>Your output</th>
             </tr>
         </thead>
-        <tr><th><p id="input"></th><th><p id="output"></th><th><p id="answer"></th>
+        <tr><th><p id="input" class="white-space-pre"></th><th><p id="output" class="white-space-pre"></th><th><p id="answer" class="white-space-pre" ></th>
         </tr>
         </table>
         @endif
@@ -45,3 +45,8 @@ function show_analysis(input,output,answer){
  $("#answer").text(answer);
 }
 </script>
+<style>
+    .white-space-pre {
+    white-space: pre-wrap;
+}
+    </style>
