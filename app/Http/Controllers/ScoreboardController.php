@@ -237,7 +237,8 @@ $scores=[];
         $tasklist=[];
    foreach (session('courses') as $course) {
        if($duration=='all')
-       {$tasks=Schedule::where('course_id','=',$course['id'])->get();
+       {$now=Carbon::now()->toDateTimeString();
+           $tasks=Schedule::where('course_id','=',$course['id'])->where('end_time','<=',$now)->get();
 
        }else{
        $tasks=Schedule::where('course_id','=',$course['id'])->where('end_time','>=',$now)->where('start_time','<=',$now)->get();
