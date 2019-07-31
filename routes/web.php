@@ -26,6 +26,7 @@ Route::get('/changePassword','HomeController@showChangePasswordForm');
 Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
 Route::resource('/info','InfoController');
 Route::resource('/admin','AdminController');
+Route::resource('/about','About');
 
 Route::get('/adminPage/addnewclassroom', function () {
     return view('admin.addclassroom');
