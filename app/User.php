@@ -54,5 +54,8 @@ public function problem()
 {
     return $this->hasMany('App\Problem', 'user_id', 'id');
 }
-
+public function submission()
+{
+    return $this->hasMany('App\Submission', 'user_id', 'id');
+}
 }

@@ -97,6 +97,9 @@
                                 </div>
                             </li>
                         @endguest
+                        <li class="nav-item">
+                                <a class="nav-link active" href="/about">About</a>
+                            </li>
                     </ul>
                 </div>
             </div>

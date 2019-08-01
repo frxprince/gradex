@@ -26,6 +26,8 @@ class About extends Controller
     public function index()
     {//  $user_count=User::count();
     $analysis_count=Analysis::count();
+    $latestsubmission=Submission::orderBy('id','desc')->limit(5)->get();
+    $queue_count=Waitinglist::count();
     $submission_count=Submission::count();
     $myfile = fopen((env('LAST_SEEN','no')), "r") or die("Unable to open file!");
     $timestamp=fread($myfile,filesize((env('LAST_SEEN','no'))));
@@ -36,7 +38,8 @@ class About extends Controller
     $compilerinfo= $compilerinfo.'<hr>'.nl2br(shell_exec("g++ --version"));
     $compilerinfo= $compilerinfo.'<hr>'.nl2br(shell_exec("javac --version"));
     $compilerinfo= $compilerinfo.'<hr>'.nl2br(shell_exec("java --version"));
-return view('about.about')->with('payload',['analysis'=>$analysis_count,'submission'=>$submission_count,'lastseen'=>$lastseen,'compiler'=>$compilerinfo]);
+    //return $latestsubmission[1]->user->name;
+return view('about.about')->with('payload',['latest'=>$latestsubmission,'analysis'=>$analysis_count,'queue_count'=>$queue_count,'submission'=>$submission_count,'lastseen'=>$lastseen,'compiler'=>$compilerinfo]);
     }
 
     /**
@@ -68,7 +71,7 @@ return view('about.about')->with('payload',['analysis'=>$analysis_count,'submiss
      */
     public function show($id)
     {
-        
+
     }
 
     /**

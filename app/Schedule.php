@@ -15,5 +15,8 @@ public function problem()
 {
     return $this->hasOne('App\Problem','id','problem_id');
 }
-
+public function submission()
+{
+    return $this->hasMany('App\Submission', 'id', 'schedule_id');
+}
 }
