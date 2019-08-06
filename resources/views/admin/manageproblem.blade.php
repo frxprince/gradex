@@ -4,6 +4,10 @@
 @if (auth()->user()->admin)
 <h2>Problem manager </h2>
 <br>
+<div class="container">
+  <div class="col">
+      
+  
 
 <table class='table'>
     <thead>
@@ -24,6 +28,7 @@
 </tr>
 @endforeach  
 </table>
-
+</div>
+</div>
 @endif
 @endsection

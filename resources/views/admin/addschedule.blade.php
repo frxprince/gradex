@@ -10,7 +10,7 @@
         {!! Form::select('course',$courses,'default', array('onchange' => 'sclick(this)')) !!}
 {!! Form::close() !!}
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-11">
         <table class="table table-bordered" id='leftcol'>
             <tr>
                 <thead>
@@ -24,7 +24,7 @@
         </table>
 
     </div>
-    <div class="col-md-5">
+    <div class="col-md-1">
 <p id="rightcol"></p>
     </div>
 </div>
