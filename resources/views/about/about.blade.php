@@ -43,7 +43,7 @@
 @endif
 </div>
 <div class="row">
-        The&nbsp;&nbsp;  <p class="text-success">{{$payload['analysis']}}</p>  &nbsp;&nbsp;cases has been evaluated from &nbsp;&nbsp;<p class="text-success">{{$payload['submission']}}</p>&nbsp;&nbsp;  submissions since the system is up and running.
+        The&nbsp;&nbsp;  <p class="text-success">{{$payload['analysis']}}</p>  &nbsp;&nbsp;cases from &nbsp;&nbsp;<p class="text-success">{{$payload['submission']}}</p>&nbsp;&nbsp;  submissions has been evaluated since the system is up and running.
 </div>
 
 
