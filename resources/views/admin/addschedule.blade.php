@@ -1,4 +1,4 @@
-@extends('submission.mainlayout')
+@extends('admin.mainlayout')
 @section('rightpanel')
 @if (auth()->user()->admin)
 @foreach ($payload as $item)
