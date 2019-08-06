@@ -9,7 +9,7 @@ The total queue in the grader is {{$payload['queuelenght']}}
 Don't panic !, grab a cup of coffee and relax.
  Your submission will be graded soon. ( this page is automatically refresh)
 @endsection
-
+<meta http-equiv="refresh" content="20">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 <script type="text/javascript">
   var wsbroker = "grader.drpaween.com";  //mqtt websocket enabled broker
