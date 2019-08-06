@@ -144,9 +144,21 @@ return  redirect('/submission/'.$submission->id.'/edit')->with('success','Sccces
      */
     public function edit($id)
     { $queue=Waitinglist::count();
-
-
-   return view('submission.showresult')->with('payload',['data'=>$this->getTasklist(),'result'=>'','queuelenght'=>$queue]);
+        $remain=$id;
+        $myorder=$id;
+     if($queue>0){
+        $firstQ=Waitinglist::where('id','>','0')->orderBy('id')->first();
+        $remain=$firstQ->id;
+        $myQ=Waitinglist::where('submission_id','=',$id)->orderBy('id')->first();
+        if($myQ !=null){
+        $myorder=$myQ->id;}else{
+            return redirect('/scoreboard')->withErrors(array('message'=>'Your submission has been graded!'));
+        }
+     }else{
+        return redirect('/scoreboard')->withErrors(array('message'=>'Your submission has been graded!'));
+     }
+     $mywaiting=abs($remain-$myorder);
+   return view('submission.showresult')->with('payload',['data'=>$this->getTasklist(),'result'=>'','queuelenght'=>$queue,'waiting'=>$mywaiting]);
     }
 
 
