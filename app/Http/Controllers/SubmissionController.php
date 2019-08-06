@@ -152,11 +152,17 @@ return  redirect('/submission/'.$submission->id.'/edit')->with('success','Sccces
         $myQ=Waitinglist::where('submission_id','=',$id)->orderBy('id')->first();
         if($myQ !=null){
         $myorder=$myQ->id;}else{
-            return redirect('/scoreboard')->withErrors(array('message'=>'Your submission has been graded!'));
+          //  return redirect('/scoreboard')->withErrors(array('message'=>'Your submission has been graded!'));
+
         }
      }else{
+       // return redirect('/scoreboard')->withErrors(array('message'=>'Your submission has been graded!'));
+     }
+     $Graded=Submission::where('id','=',$id)->first();
+     if($Graded->graded==1){
         return redirect('/scoreboard')->withErrors(array('message'=>'Your submission has been graded!'));
      }
+
      $mywaiting=abs($remain-$myorder);
    return view('submission.showresult')->with('payload',['data'=>$this->getTasklist(),'result'=>'','queuelenght'=>$queue,'waiting'=>$mywaiting]);
     }
