@@ -8,6 +8,7 @@
  <table class='table'>
      <tr>
          <thead>
+             <th> Login </th>
              <th> Name </th>
              @foreach ($course['problems'] as $problem)
          <th>{{$problem}}</th>
@@ -18,8 +19,11 @@
      @foreach ($course['scores'] as $scores)
          <tr>
              <td>
-                      {{$scores['alias']}}
+                      {{$scores['names']}}
              </td>
+             <td>
+                    {{$scores['alias']}}
+           </td>
             @foreach ($scores['scores'] as $score)
                 <td>
                     {{$score}}
