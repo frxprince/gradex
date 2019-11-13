@@ -127,7 +127,8 @@ return  redirect('/submission/'.$submission->id.'/edit')->with('success','Sccces
 
      public function showproblem($problem_id,$schedule_id){
         $problem=Problem::find($problem_id);
-   return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'problem'=>$problem,'schedule_id'=>$schedule_id]);
+        $schedule_info=Schedule::find($schedule_id);
+   return view('submission.index')->with('payload',['data'=>$this->getTasklist(),'problem'=>$problem,'schedule_id'=>$schedule_id,'schedule_info'=>$schedule_info]);
      }
     public function show($id)
     {
