@@ -29,8 +29,9 @@ class About extends Controller
     $latestsubmission=Submission::orderBy('id','desc')->limit(5)->get();
     $queue_count=Waitinglist::count();
     $submission_count=Submission::count();
-    $myfile = fopen((env('LAST_SEEN','no')), "r") or die("Unable to open file!");
-    $timestamp=fread($myfile,filesize((env('LAST_SEEN','no'))));
+
+    $myfile = fopen('/home/ohm/grader_2/grader/lastseen.txt', "r") or die("Unable to open file!");
+    $timestamp=fread($myfile,filesize('/home/ohm/grader_2/grader/lastseen.txt'));
     fclose($myfile);
     $lastseen= abs((float)$timestamp-time());
     $compilerinfo= nl2br(shell_exec("python3 --version")).'<br/>'.nl2br(shell_exec("pip3 list"));

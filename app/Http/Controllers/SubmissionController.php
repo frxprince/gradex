@@ -85,6 +85,12 @@ $now=Carbon::now()->toDateTimeString();
         if($passdue>0){
             return redirect('/submission/'.$request->input('problem_id').'/'.$request->input('schedule_id'))->withErrors(array('message'=>'The submission of this task is no longer allowed! +_+'));
         }
+        $CurrentSchedule=Schedule::where('id','=',$request->input('schedule_id'))->first();
+    if(strlen($CurrentSchedule->Lang)>0)
+        if($request->input('Lang')!= $CurrentSchedule->Lang){
+            return redirect('/submission/'.$request->input('problem_id').'/'.$request->input('schedule_id'))->withErrors(array('message'=>'Invalid request +_+'));
+        }
+        
 
         if($request->hasFile('sourcefile')){
 

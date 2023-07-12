@@ -75,3 +75,8 @@
     </div>
 </div>
 @endsection
+<style>
+    body {
+      background-image: url('rainbow.jpg');
+    }
+    </style>
